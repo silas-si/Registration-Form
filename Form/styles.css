@@ -217,31 +217,31 @@ button:active { transform: translateY(0); }
 
 .btn-secondary {
   background: var(--muted-grey);
-  color: var(--text-light);
+  color: var,--text-light;
 }
 .btn-secondary:hover { background: #374151; }
 
 .btn-danger {
   background: var(--danger-red);
-  color: var(--text-light);
+  color: var,--text-light;
 }
 .btn-danger:hover { background: #8e1b1b; }
 
 .btn-success {
   background: var(--accent-green);
-  color: var(--text-light);
+  color: var,--text-light;
 }
 .btn-success:hover { background: #1b5e20; }
 
 .btn-warning {
   background: var(--warning-yellow);
-  color: var(--dark-grey);
+  color: var,--dark-grey;
 }
 .btn-warning:hover { background: #f57f17; }
 
 .btn-light {
   background: var(--light-grey);
-  color: var(--text-dark);
+  color: var,--text-dark;
 }
 .btn-light:hover { background: #d1d5db; }
 
@@ -256,7 +256,7 @@ button:active { transform: translateY(0); }
 /* --- Distinct style for Cancel Edit button --- */
 #cancelEdit.btn-warning {
   background: var(--warning-yellow);
-  color: var(--dark-grey);
+  color: var,--dark-grey;
   border: 2px solid var(--warning-yellow);
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(251,192,45,0.08);
@@ -370,16 +370,38 @@ tbody tr:hover {
   background: #f1f5f9;
 }
 
-/* Prevent table row hover from turning white in dark mode */
-body.dark tbody tr:hover {
+/* Prevent table row hover from turning white in dark mode (for all profiles, current and future) */
+body.dark table tbody tr:hover,
+body.dark table tbody tr:focus-within {
   background: #263238 !important; /* or another dark shade */
-  color: #fff;
+  color: #fff !important;
+}
+
+/* Fix: In dark mode, table rows should always have dark backgrounds, even when not hovered */
+body.dark table,
+body.dark table tbody,
+body.dark table tr,
+body.dark table td {
+  background: #1e1e1e !important;
+  color: #fafafa !important; /* brighter for readability */
+}
+
+/* Remove light backgrounds for even rows in dark mode */
+body.dark table tbody tr:nth-child(even) {
+  background: #23272a !important;
+}
+
+/* On hover/focus, use a slightly lighter dark and keep text bright */
+body.dark table tbody tr:hover,
+body.dark table tbody tr:focus-within {
+  background: #263238 !important;
+  color: #fff !important;
 }
 
 /* Style Edit and Remove buttons in table and cards */
 .edit-btn {
   background: var(--primary-teal);
-  color: var(--text-light);
+  color: var,--text-light;
   border: none;
   border-radius: var(--radius-sm);
   padding: 0.6rem 1.2rem;
@@ -394,7 +416,7 @@ body.dark tbody tr:hover {
 
 .remove-btn {
   background: var(--danger-red);
-  color: var(--text-light);
+  color: var,--text-light;
   border: none;
   border-radius: var(--radius-sm);
   padding: 0.6rem 1.2rem;
