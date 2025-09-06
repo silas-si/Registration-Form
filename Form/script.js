@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearInput = document.getElementById("year");
   const interestsInput = document.getElementById("interests");
   const photoFileInput = document.getElementById("photoFile");
+  const photoUrlInput = document.getElementById("photoUrl");
   const formStatus = document.getElementById("formStatus") || document.getElementById("formStatus"); // fallback
   const cardsContainer = document.getElementById("cardsContainer");
   const summaryTable = document.getElementById("summaryTable");
@@ -165,21 +166,31 @@ document.addEventListener("DOMContentLoaded", () => {
         valid = false;
       }
     }
+
+    // Validate photo URL if provided
+    if (photoUrlInput && photoUrlInput.value.trim() !== "") {
+      const url = photoUrlInput.value.trim();
+      // Simple image URL validation (ends with jpg/jpeg/png)
+      if (!/^https?:\/\/.+\.(jpg|jpeg|png)$/i.test(url)) {
+        showError("photoUrl", "Please enter a valid image URL ending with .jpg, .jpeg, or .png.");
+        valid = false;
+      }
+    }
+
     return valid;
   }
 
-  function showError(fieldId, message) {
-    const el = document.getElementById(fieldId + "Error");
-    if (el) {
-      el.textContent = message;
-      el.setAttribute("role", "alert");
+  function showError(field, message) {
+    const errorSpan = document.getElementById(field + "Error");
+    if (errorSpan) {
+      errorSpan.textContent = message;
     }
   }
-  function clearError(fieldId) {
-    const el = document.getElementById(fieldId + "Error");
-    if (el) {
-      el.textContent = "";
-      el.removeAttribute("role");
+
+  function clearError(field) {
+    const errorSpan = document.getElementById(field + "Error");
+    if (errorSpan) {
+      errorSpan.textContent = "";
     }
   }
 
@@ -356,6 +367,13 @@ document.addEventListener("DOMContentLoaded", () => {
      CRUD operations
      ========================= */
   function createNewProfileObjectFromForm() {
+    let photoUrl = "";
+    let file = null;
+    if (photoFileInput && photoFileInput.files && photoFileInput.files[0]) {
+      file = photoFileInput.files[0];
+    } else if (photoUrlInput && photoUrlInput.value.trim() !== "") {
+      photoUrl = photoUrlInput.value.trim();
+    }
     // Parse interests from comma-separated string, trim, remove empty, max 3
     let interestsArr = [];
     if (interestsInput && interestsInput.value) {
@@ -372,7 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
       programme: programmeInput.value,
       year: yearInput.value,
       interests: interestsArr,
-      file: photoFileInput.files && photoFileInput.files[0] ? photoFileInput.files[0] : null
+      photoUrl,
+      file
     };
   }
 
