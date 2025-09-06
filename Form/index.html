@@ -81,9 +81,15 @@
         </div>
 
         <div class="form-row">
-          <label for="photoFile">Photo</label>
-          <input type="file" id="photoFile" name="photoFile" accept=".jpg,.jpeg,.png"/>
-          <span class="error" id="photoFileError" aria-live="polite"></span>
+          <label for="photoFile">Profile Photo</label>
+          <input type="file" id="photoFile" name="photoFile" accept="image/png, image/jpeg" />
+          <span class="hint">Choose a JPG or PNG file (max 2MB).</span>
+        </div>
+        <div class="form-row">
+          <label for="photoUrl">Or Photo URL</label>
+          <input type="url" id="photoUrl" name="photoUrl" placeholder="https://example.com/photo.jpg" />
+          <span class="hint">Paste a direct link to a JPG or PNG image.</span>
+          <span class="error" id="photoUrlError" aria-live="polite"></span>
         </div>
 
         <div class="flex gap-2 mt-3">
