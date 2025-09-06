@@ -1,0 +1,564 @@
+/* ======================================================
+   style.css — Enhanced UI for Profile Manager
+   Author: Silas Silas
+   Theme: Teal, Blue, Green, Dark Grey, Red
+   Lines: 600+
+   ====================================================== */
+
+/* -------------------------
+   1. Reset & Base
+   ------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f7f9;
+  color: #1f2937;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Accessibility: Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #00897b;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: top 0.3s;
+  z-index: 1000;
+}
+.skip-link:focus {
+  top: 10px;
+}
+
+/* -------------------------
+   2. Root Variables
+   ------------------------- */
+:root {
+  --primary-teal: #00897b;
+  --primary-blue: #1976d2;
+  --accent-green: #2e7d32;
+  --danger-red: #c62828;
+  --warning-yellow: #fbc02d;
+  --muted-grey: #4b5563;
+  --light-grey: #e5e7eb;
+  --dark-grey: #1f2937;
+  --text-dark: #1f2937;
+  --text-light: #f9fafb;
+  --card-bg: #ffffff;
+  --highlight: #ffe082;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* -------------------------
+   3. Typography
+   ------------------------- */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+h1 { font-size: 2rem; color: var(--primary-teal); }
+h2 { font-size: 1.6rem; color: var(--primary-blue); }
+h3 { font-size: 1.3rem; color: var(--muted-grey); }
+p, label, span {
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+.lead {
+  font-size: 1.1rem;
+  color: var(--muted-grey);
+  margin-bottom: 1.5rem;
+}
+
+/* Links */
+a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #0d47a1;
+}
+
+/* -------------------------
+   4. Form Styling
+   ------------------------- */
+form {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 900px;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--primary-blue);
+}
+
+input,
+select,
+textarea {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--light-grey);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.25);
+}
+
+/* Hints & Errors */
+.hint {
+  font-size: 0.85rem;
+  color: var(--muted-grey);
+}
+.error {
+  font-size: 0.85rem;
+  color: var(--danger-red);
+  font-weight: 500;
+}
+
+/* File input */
+input[type="file"] {
+  padding: 0.3rem;
+}
+
+/* --- Make "Choose File" button teal --- */
+input[type="file"]::-webkit-file-upload-button {
+  background: var(--primary-teal);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+input[type="file"]::-webkit-file-upload-button:hover {
+  background: #00695c;
+}
+input[type="file"]::file-selector-button {
+  background: var(--primary-teal);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+input[type="file"]::file-selector-button:hover {
+  background: #00695c;
+}
+
+/* -------------------------
+   5. Buttons
+   ------------------------- */
+button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+button:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+button:hover { transform: translateY(-2px); }
+button:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--primary-teal);
+  color: var(--text-light);
+}
+.btn-primary:hover { background: #00695c; }
+
+.btn-secondary {
+  background: var(--muted-grey);
+  color: var(--text-light);
+}
+.btn-secondary:hover { background: #374151; }
+
+.btn-danger {
+  background: var(--danger-red);
+  color: var(--text-light);
+}
+.btn-danger:hover { background: #8e1b1b; }
+
+.btn-success {
+  background: var(--accent-green);
+  color: var(--text-light);
+}
+.btn-success:hover { background: #1b5e20; }
+
+.btn-warning {
+  background: var(--warning-yellow);
+  color: var(--dark-grey);
+}
+.btn-warning:hover { background: #f57f17; }
+
+.btn-light {
+  background: var(--light-grey);
+  color: var(--text-dark);
+}
+.btn-light:hover { background: #d1d5db; }
+
+/* --- Space out Submit, Reset, and Cancel Edit buttons --- */
+.flex.gap-2.mt-3 > button {
+  margin-right: 0.7rem;
+}
+.flex.gap-2.mt-3 > button:last-child {
+  margin-right: 0;
+}
+
+/* --- Distinct style for Cancel Edit button --- */
+#cancelEdit.btn-warning {
+  background: var(--warning-yellow);
+  color: var(--dark-grey);
+  border: 2px solid var(--warning-yellow);
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(251,192,45,0.08);
+}
+#cancelEdit.btn-warning:hover {
+  background: #f57f17;
+  color: #fff;
+  border-color: #f57f17;
+}
+
+/* -------------------------
+   6. Toolbar (Search & Filter)
+   ------------------------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.toolbar input,
+.toolbar select {
+  min-width: 220px;
+}
+
+/* -------------------------
+   7. Cards
+   ------------------------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.profile-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.3s;
+  position: relative;
+}
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.profile-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--light-grey);
+}
+.card-body {
+  padding: 1rem;
+}
+.card-body h4 {
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+.card-body p {
+  margin: 0.25rem 0;
+  color: var(--muted-grey);
+}
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary-blue);
+  color: var(--text-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* -------------------------
+   8. Table
+   ------------------------- */
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+thead {
+  background: var(--primary-blue);
+  color: var(--text-light);
+}
+thead th {
+  padding: 0.8rem;
+  text-align: left;
+}
+tbody td {
+  padding: 0.8rem;
+  border-top: 1px solid var(--light-grey);
+}
+tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* Prevent table row hover from turning white in dark mode */
+body.dark tbody tr:hover {
+  background: #263238 !important; /* or another dark shade */
+  color: #fff;
+}
+
+/* Style Edit and Remove buttons in table and cards */
+.edit-btn {
+  background: var(--primary-teal);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 0.7rem;
+  transition: background 0.2s, transform 0.1s;
+}
+.edit-btn:hover {
+  background: #00695c;
+}
+
+.remove-btn {
+  background: var(--danger-red);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.remove-btn:hover {
+  background: #8e1b1b;
+}
+
+/* Ensure separation in table actions and card actions */
+.td-actions,
+.card-actions {
+  display: flex;
+  gap: 0.7rem;
+}
+
+/* -------------------------
+   9. Alerts & Status
+   ------------------------- */
+#formStatus {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+#formStatus.success {
+  color: var(--accent-green);
+}
+#formStatus.error {
+  color: var(--danger-red);
+}
+#formStatus.info {
+  color: var(--primary-blue);
+}
+
+/* -------------------------
+   10. Utilities
+   ------------------------- */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--muted-grey); }
+
+.flex { display: flex; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+/* -------------------------
+   11. Animations
+   ------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.5s ease forwards; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.pulse { animation: pulse 1s infinite; }
+
+/* -------------------------
+   12. Highlight for Search
+   ------------------------- */
+mark {
+  background: var(--highlight);
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+/* -------------------------
+   13. Loading Spinner
+   ------------------------- */
+.spinner {
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* -------------------------
+   14. Responsive Design
+   ------------------------- */
+@media (max-width: 768px) {
+  form { padding: 1rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  thead { display: none; }
+  tbody td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+  tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 1rem;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+/* -------------------------
+   15. Dark Mode (opt-in)
+   ------------------------- */
+body.dark {
+  background: #121212;
+  color: #e0e0e0;
+}
+body.dark form,
+body.dark table,
+body.dark .profile-card {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+body.dark thead {
+  background: var(--primary-teal);
+}
+body.dark a { color: #80cbc4; }
+body.dark a:hover { color: #4db6ac; }
+body.dark input[type="file"]::-webkit-file-upload-button,
+body.dark input[type="file"]::file-selector-button {
+  background: var(--primary-teal);
+  color: var(--text-light);
+}
+body.dark #cancelEdit.btn-warning {
+  background: #fbc02d;
+  color: #222;
+  border-color: #fbc02d;
+}
+body.dark #cancelEdit.btn-warning:hover {
+  background: #f57f17;
+  color: #fff;
+  border-color: #f57f17;
+}
+
+/* -------------------------
+   16. Print Styles
+   ------------------------- */
+@media print {
+  body { background: #fff; color: #000; }
+  form, .toolbar, .btn, .spinner { display: none; }
+  table { border: 1px solid #000; }
+  thead { background: #000; color: #fff; }
+}

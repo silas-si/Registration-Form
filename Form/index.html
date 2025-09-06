@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile Manager – Registration & Cards</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Accessibility Skip Link -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="flex-between mb-4">
+    <h1>Profile Manager</h1>
+    <button id="toggleDark" class="btn-light" aria-label="Toggle dark mode">🌙 Dark Mode</button>
+  </header>
+
+  <main id="main">
+    <!-- Registration Form -->
+    <section aria-labelledby="formTitle">
+      <h2 id="formTitle">Register a New Profile</h2>
+      <p class="lead">Fill in the form below to create a profile card and table entry.</p>
+
+      <form id="registrationForm" novalidate>
+        <div class="grid-2">
+          <div class="form-row">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required/>
+            <span class="error" id="firstNameError" aria-live="polite"></span>
+          </div>
+          <div class="form-row">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required/>
+            <span class="error" id="lastNameError" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required/>
+            <span class="error" id="emailError" aria-live="polite"></span>
+          </div>
+          <div class="form-row">
+            <label for="programme">Programme</label>
+            <select id="programme" name="programme" required>
+              <option value="">Select Programme </option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Information Systems">Information Systems</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="Engineering">Engineering</option>
+            </select>
+            <span class="error" id="programmeError" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="year">Year of Study</label>
+          <select id="year" name="year" required>
+            <option value="">Select Year</option>
+            <option value="1">Year 1</option>
+            <option value="2">Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4">Year 4</option>
+          </select>
+          <span class="error" id="yearError" aria-live="polite"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="interests">Interests</label>
+          <input
+            type="text"
+            id="interests"
+            name="interests"
+            placeholder="Type interests separated by commas (e.g. AI, Web, Cloud)"
+            aria-describedby="interestsHelp"
+            autocomplete="off"
+          />
+          <span class="hint" id="interestsHelp">Type up to three interests, and seperate with commas.</span>
+          <span class="error" id="interestsError" aria-live="polite"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="photoFile">Photo</label>
+          <input type="file" id="photoFile" name="photoFile" accept=".jpg,.jpeg,.png"/>
+          <span class="error" id="photoFileError" aria-live="polite"></span>
+        </div>
+
+        <div class="flex gap-2 mt-3">
+          <button type="submit" class="btn-primary">Submit</button>
+          <button type="reset" class="btn-secondary">Reset</button>
+          <button type="button" id="cancelEdit" class="btn-warning" hidden>Cancel Edit</button>
+        </div>
+
+        <p id="formStatus" aria-live="polite" class="mt-2"></p>
+      </form>
+    </section>
+
+    <!-- Search & Filter Toolbar -->
+    <section aria-labelledby="searchTitle" class="toolbar">
+      <h2 id="searchTitle" class="sr-only">Search & Filter</h2>
+      <input type="text" id="searchInput" placeholder="Search profiles..." aria-label="Search profiles" tabindex="0"/>
+      <select id="filterField" aria-label="Filter by field">
+        <option value="all">All Fields</option>
+        <option value="firstName">First Name</option>
+        <option value="lastName">Last Name</option>
+        <option value="email">Email</option>
+        <option value="programme">Programme</option>
+        <option value="year">Year</option>
+      </select>
+      <button id="clearSearch" class="btn-light" tabindex="0">Clear Search</button>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="spinner" hidden></div>
+
+    <!-- Profile Cards -->
+    <section aria-labelledby="cardsTitle">
+      <h2 id="cardsTitle">Profile Cards</h2>
+      <div id="cardsContainer" class="cards-grid"></div>
+    </section>
+
+    <!-- Summary Table -->
+    <section aria-labelledby="tableTitle">
+      <h2 id="tableTitle">Summary Table</h2>
+      <div class="table-wrapper">
+        <table id="summaryTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Photo</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Programme</th>
+              <th>Year</th>
+              <th>Interests</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  // Dark mode toggle
+  const darkBtn = document.getElementById('toggleDark');
+  darkBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    // Optionally, save preference
+    if (document.body.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+      darkBtn.textContent = '☀️ Light Mode';
+    } else {
+      localStorage.setItem('theme', 'light');
+      darkBtn.textContent = '🌙 Dark Mode';
+    }
+  });
+  // On load, set theme from localStorage
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    darkBtn.textContent = '☀️ Light Mode';
+  }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
